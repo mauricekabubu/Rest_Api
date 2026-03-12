@@ -75,6 +75,10 @@ class Video(Resource):
         db.session.commit()
         return video_obj, 201
 
+    #201 -->created successfully
+    #200 --> OK
+    #500 -->Internal server error
+
     @marshal_with(resource_fields)
     def patch(self, video_id):
         args = video_update_args.parse_args()
