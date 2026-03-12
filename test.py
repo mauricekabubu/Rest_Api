@@ -4,9 +4,10 @@ try:
     
     data = [{"name":"How to learn Python", "views": 1000, "likes": 100},
             {"name":"How to learn JavaScript", "views": 2000, "likes": 200},
-            {"name":"How to learn Java", "views": 3000, "likes": 300}]
+            {"name":"How to learn Java", "views": 3000, "likes": 300},
+           {"name":"How be a better Backend developer in 2026","views":1500,"likes":456}]
     
-    base_url = "http://127.0.0.1:5000/"
+    base_url = "http://127.0.0.1:5000/" #-->local port
     
     for i in range(len(data)):
         response = requests.put(base_url+"/video/"+str(i+1), json=data[i])
