@@ -64,6 +64,7 @@ class Video(Resource):
             abort(404, message="Video not found")
         return video_obj, 200
 
+    #Error put should be update not create
     @marshal_with(resource_fields)
     def put(self, video_id):
         args = video_put_args.parse_args()
@@ -75,10 +76,14 @@ class Video(Resource):
         db.session.commit()
         return video_obj, 201
 
+<<<<<<< HEAD
     #201 -->created successfully
     #200 --> OK
     #500 -->Internal server error
 
+=======
+    #Put should be update
+>>>>>>> 323912d (Final commit)
     @marshal_with(resource_fields)
     def patch(self, video_id):
         args = video_update_args.parse_args()
