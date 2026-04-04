@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Manager</title>
+</head>
+<body>
+
+    <h2>Add Employee</h2>
+
+    <form id="employeeForm">
+        <input type="text" id="username" placeholder="Username" required><br><br>
+        <input type="email" id="email" placeholder="Email" required><br><br>
+        <input type="number" id="salary" placeholder="Salary" required><br><br>
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <h2>Employees List</h2>
+    <ul id="employeeList"></ul>
+
+<script>
+
+    const API_URL = "http://127.0.0.1:5500/employees";
+
+    // Load employees
+    async function loadEmployees() {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+
+        const list = document.getElementById("employeeList");
+        list.innerHTML = "";
+
+        data.employee.forEach(emp => {
+            const li = document.createElement("li");
+            li.textContent = `${emp.username} - ${emp.email} - ${emp.salary}`;
+            list.appendChild(li);
+        });
+    }
+
+    // Add employee
+    document.getElementById("employeeForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const salary = document.getElementById("salary").value;
+
+        const res = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                salary: parseFloat(salary)
+            })
+        });
+
+        const data = await res.json();
+        console.log(data);
+
+        loadEmployees(); // refresh list
+    });
+
+    // Load on start
+    loadEmployees();
+
+</script>
+
+</body>
+</html>
